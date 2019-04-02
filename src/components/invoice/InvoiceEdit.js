@@ -54,7 +54,7 @@ class InvoiceEdit extends Component {
   }
 
   componentDidMount() {
-    const URL = 'http://142.93.13.106:5000/'
+    const URL = 'http://142.93.13.106:5000'
     axios
     .get(`${URL}/api/invoice/edit/${this.props.match.params.id}`)
     .then(res => {
@@ -94,7 +94,7 @@ class InvoiceEdit extends Component {
 
   onSubmit = (e) => {
     e.preventDefault()
-    const URL = 'http://142.93.13.106:5000/'
+    const URL = 'http://142.93.13.106:5000'
     const obj = {
       invoiceNumber: this.state.invoiceNumber,
       createdBy: this.state.createdBy,
