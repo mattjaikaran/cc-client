@@ -54,8 +54,9 @@ class InvoiceEdit extends Component {
   }
 
   componentDidMount() {
+    const URL = 'http://142.93.13.106:5000/'
     axios
-    .get(`/api/invoice/edit/${this.props.match.params.id}`)
+    .get(`${URL}/api/invoice/edit/${this.props.match.params.id}`)
     .then(res => {
       console.log(res.data)
       this.setState({

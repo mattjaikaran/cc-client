@@ -11,7 +11,8 @@ class InvoiceAll extends Component {
   }
 
   componentDidMount() {
-    axios.get('/api/invoice/')
+    const URL = 'http://142.93.13.106'
+    axios.get(`${URL}/api/invoice/`)
     .then(res => {
       this.setState({ invoice: res.data.reverse() })
     })
