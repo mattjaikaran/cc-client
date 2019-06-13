@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import moment from 'moment'
-import DateTimePicker from 'react-datetime-picker'
 import Select from 'react-select'
 
 class InvoiceEdit extends Component {
@@ -10,7 +9,6 @@ class InvoiceEdit extends Component {
     this.state = {
       invoiceNumber: '',
       createdAt: new Date().toLocaleString(),
-      dueDate: '',
       updatedAt: '',
       createdBy: '',
       custCode: '',
@@ -22,8 +20,6 @@ class InvoiceEdit extends Component {
       silverBalance: '',
       platinumPrice: '',
       platinumBalance: '',
-      brassPrice: '',
-      brassBalance: '',
       lineItems: [],
       lineWeight: '',
       linePieces: '',
@@ -64,7 +60,6 @@ class InvoiceEdit extends Component {
         createdBy: res.data.createdBy,
         createdAt: moment(res.data.createdAt).format('lll'),
         updatedAt: new Date().toLocaleString(),
-        // dueDate: moment(res.data.dueDate).format('lll'),
         custCode: res.data.custCode,
         goldPrice: res.data.goldPrice,
         goldBalance: res.data.goldBalance,
@@ -74,8 +69,6 @@ class InvoiceEdit extends Component {
         silverBalance: res.data.silverBalance,
         platinumPrice: res.data.platinumPrice,
         platinumBalance: res.data.platinumBalance,
-        brassPrice: res.data.brassPrice,
-        brassBalance: res.data.brassBalance,
         status: res.data.status,
         lineItems: res.data.lineItems,
         metalTotal: res.data.metalTotal.toFixed(2),
@@ -100,7 +93,6 @@ class InvoiceEdit extends Component {
       createdBy: this.state.createdBy,
       createdAt: this.state.createdAt,
       updatedAt: new Date().toLocaleString(),
-      dueDate: this.state.dueDate,
       custCode: this.state.custCode,
       goldPrice: this.state.goldPrice,
       goldBalance: this.state.goldBalance,
@@ -108,8 +100,6 @@ class InvoiceEdit extends Component {
       silverBalance: this.state.silverBalance,
       platinumPrice: this.state.platinumPrice,
       platinumBalance: this.state.platinumBalance,
-      brassPrice: this.state.brassPrice,
-      brassBalance: this.state.brassBalance,
       lineItems: this.state.lineItems,
       status: this.state.status,
       metalTotal: this.state.metalTotal,
@@ -120,10 +110,6 @@ class InvoiceEdit extends Component {
     }
     axios.post(`${URL}/api/invoice/update/${this.props.match.params.id}`, obj)
       .then(res => this.props.history.push('/invoice'))
-  }
-
-  dueDate = (dueDate) => {
-    this.setState({ dueDate })
   }
 
   //calculate line total
@@ -214,10 +200,12 @@ class InvoiceEdit extends Component {
 
   render() {
     const options = [
+      { value: '10K Gold', label: '10K Gold' },
+      { value: '14K Gold', label: '14K Gold' },
+      { value: '18K Gold', label: '18K Gold' },
       { value: 'Gold', label: 'Gold' },
       { value: 'Silver', label: 'Silver' },
       { value: 'Platinum', label: 'Platinum' },
-      { value: 'Brass', label: 'Brass' },
       { value: 'Bronze', label: 'Bronze' },
       { value: 'Thai', label: 'Thai' },
       { value: 'Copper', label: 'Copper' },
@@ -267,14 +255,6 @@ class InvoiceEdit extends Component {
                 value={this.state.createdAt}
                 className="form-control"
                 readOnly />
-            </div>
-            <div className="form-group">
-              <label>Due Date</label>
-              <br />
-              <DateTimePicker
-                onChange={this.dueDate}
-                value={this.state.dueDate}
-              />
             </div>
             <div className="form-group">
               <label>Customer Code</label>
@@ -352,24 +332,6 @@ class InvoiceEdit extends Component {
                     name="platinumBalance"
                     onChange={this.onChange}
                     value={this.state.platinumBalance}
-                    className="form-control" />
-                </div>
-                <div className="form-group">
-                  <label>Brass Price</label>
-                  <input
-                    type="text"
-                    name="brassPrice"
-                    onChange={this.onChange}
-                    value={this.state.brassPrice}
-                    className="form-control" />
-                </div>
-                <div className="form-group">
-                  <label>Brass Balance</label>
-                  <input
-                    type="text"
-                    name="brassBalance"
-                    onChange={this.onChange}
-                    value={this.state.brassBalance}
                     className="form-control" />
                 </div>
               </div>

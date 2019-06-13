@@ -13,7 +13,7 @@ class TableInvoiceRow extends Component {
   delete() {
     console.log(this.props)
     const { obj } = this.props
-    const URL = 'https://142.93.13.106:5000/'
+    const URL = 'https://142.93.13.106:3000'
     confirmAlert({
       title: 'Confirm to submit',
       message: 'Are you sure? This cannot be undone.',
@@ -35,7 +35,7 @@ class TableInvoiceRow extends Component {
   }
 
   componentDidMount() {
-    const URL = 'https://142.93.13.106:5000/'
+    const URL = 'http://142.93.13.106:3000'
     axios.get(`${URL}/api/invoice`)
       .then(res => {
         this.setState({ invoice: res.data })
@@ -43,7 +43,7 @@ class TableInvoiceRow extends Component {
   }
 
   componentDidUpdate() {
-    const URL = 'https://142.93.13.106:5000/'
+    const URL = 'http://142.93.13.106:3000'
     axios.get(`${URL}/api/invoice`)
       .then(res => {
         this.setState({ invoice: res.data })

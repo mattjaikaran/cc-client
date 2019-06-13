@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import moment from 'moment'
-import DateTimePicker from 'react-datetime-picker'
 import Select from 'react-select'
 
 class InvoiceNew extends Component {
@@ -10,7 +8,6 @@ class InvoiceNew extends Component {
     this.state = {
       invoiceNumber: '',
       createdAt: new Date().toLocaleString(),
-      dueDate: '',
       createdBy: '',
       custCode: '',
       goldPrice: '',
@@ -21,8 +18,6 @@ class InvoiceNew extends Component {
       silverBalance: '',
       platinumPrice: '',
       platinumBalance: '',
-      brassPrice: '',
-      brassBalance: '',
       lineItems: [],
       lineWeight: '',
       linePieces: '',
@@ -53,12 +48,11 @@ class InvoiceNew extends Component {
 
   onSubmit = (e) => {
     e.preventDefault()
-    const URL = 'https://142.93.13.106:5000'
+    const URL = 'http://142.93.13.106:5000'
     const obj = {
       invoiceNumber: this.state.invoiceNumber,
       createdBy: this.state.createdBy,
       createdAt: this.state.createdAt,
-      dueDate: this.state.dueDate,
       custCode: this.state.custCode,
       goldPrice: this.state.goldPrice,
       goldBalance: this.state.goldBalance,
@@ -68,8 +62,6 @@ class InvoiceNew extends Component {
       silverBalance: this.state.silverBalance,
       platinumPrice: this.state.platinumPrice,
       platinumBalance: this.state.platinumBalance,
-      brassPrice: this.state.brassPrice,
-      brassBalance: this.state.brassBalance,
       lineItems: this.state.lineItems,
       metalTotal: this.state.metalTotal,
       laborTotal: this.state.laborTotal,
@@ -78,10 +70,6 @@ class InvoiceNew extends Component {
     }
     axios.post(`${URL}/api/invoice/add`, obj)
       .then(res => this.props.history.push('/invoice'))
-  }
-
-  dueDate = (dueDate) => {
-    this.setState({ dueDate })
   }
 
   //calculate line total
@@ -194,10 +182,12 @@ class InvoiceNew extends Component {
 
   render() {
     const options = [
+      { value: '10K Gold', label: '10K Gold' },
+      { value: '14K Gold', label: '14K Gold' },
+      { value: '18K Gold', label: '18K Gold' },
       { value: 'Gold', label: 'Gold' },
       { value: 'Silver', label: 'Silver' },
       { value: 'Platinum', label: 'Platinum' },
-      { value: 'Brass', label: 'Brass' },
       { value: 'Bronze', label: 'Bronze' },
       { value: 'Thai', label: 'Thai' },
       { value: 'Copper', label: 'Copper' },
@@ -239,14 +229,6 @@ class InvoiceNew extends Component {
                 value={this.state.createdAt}
                 className="form-control"
                 readOnly />
-            </div>
-            <div className="form-group">
-              <label>Due Date</label>
-              <br />
-              <DateTimePicker
-                onChange={this.dueDate}
-                value={this.state.dueDate}
-              />
             </div>
             <div className="form-group">
               <label>Customer Code</label>
@@ -316,24 +298,6 @@ class InvoiceNew extends Component {
                     name="platinumBalance"
                     onChange={this.onChange}
                     value={this.state.platinumBalance}
-                    className="form-control" />
-                </div>
-                <div className="form-group">
-                  <label>Brass Price</label>
-                  <input
-                    type="text"
-                    name="brassPrice"
-                    onChange={this.onChange}
-                    value={this.state.brassPrice}
-                    className="form-control" />
-                </div>
-                <div className="form-group">
-                  <label>Brass Balance</label>
-                  <input
-                    type="text"
-                    name="brassBalance"
-                    onChange={this.onChange}
-                    value={this.state.brassBalance}
                     className="form-control" />
                 </div>
               </div>
